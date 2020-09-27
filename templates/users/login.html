@@ -1,0 +1,87 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% block content %}
+
+
+    <!--================Home Banner Area =================-->
+    <section class="banner_area">
+        <div class="banner_inner d-flex align-items-center">
+            <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0"
+                 data-background=""></div>
+            <div class="container">
+                <div class="banner_content text-center">
+                    <h2>Login</h2>
+                    <div class="page_link">
+                        <a href="{% url 'index' %}">Home</a>
+                        <a>User Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================End Home Banner Area =================-->
+
+    <!--================Blog Area =================-->
+    <section class="blog_area p_120">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="blog-left-slider">
+                        {% if not user.is_authenticated %}
+                            <h3 class="text-center" style="color: #4b5ff2; margin-bottom: 20px"><strong>Login
+                                User</strong>
+                            </h3>
+                            <form action="" method="post">
+                                {% csrf_token %}
+
+                                {% if form.errors %}
+                                    <div id="errors">
+                                        <div class="inner">
+                                            <div class="alert alert-danger" role="alert">
+                                                <ul>
+                                                    {% for field in form %}
+                                                        {% if field.non_field_errors %}
+                                                            <li>
+                                                                {{ error|striptags }}
+                                                            </li>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+
+                                <div class="input-group-icon mt-10">
+                                    <div class="icon"><i class="fa fa-user" aria-hidden="true"></i></div>
+                                    <input type="text" name="username" placeholder="UserName"
+                                           onfocus="this.placeholder = ''"
+                                           onblur="this.placeholder = 'UserName'" required="" class="single-input">
+                                </div>
+                                <div class="input-group-icon mt-10">
+                                    <div class="icon"><i class="fa fa-unlock-alt" aria-hidden="true"></i></div>
+                                    <input type="password" name="password" placeholder="Password"
+                                           onfocus="this.placeholder = ''"
+                                           onblur="this.placeholder = 'password'" required="" class="single-input">
+                                </div>
+
+                                <input type="submit" class=" genric-btn info circle arrow" value="Login"
+                                       style="margin-top: 20px; margin-left: 85%">
+
+                            </form>
+                        {% else %}
+                            <h3 style="color: red">You Already Logged In..</h3>
+                        {% endif %}
+                    </div>
+                </div>
+
+
+                {% include 'layouts/right_category.html' %}
+
+            </div>
+        </div>
+    </section>
+    <!--================Blog Area =================-->
+
+
+{% endblock %}
